@@ -25,6 +25,9 @@ scripts:
   run:
     $before: flutter pub get
     $script: flutter run
+  gen:
+    build: dart run build_runner build
+    watch: dart run build_runner watch
 
 # Dependencies specify other packages that your package needs in order to work.
 # To automatically upgrade your package dependencies to the latest versions

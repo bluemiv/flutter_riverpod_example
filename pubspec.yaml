@@ -26,8 +26,21 @@ scripts:
     $before: flutter pub get
     $script: flutter run
   gen:
-    build: dart run build_runner build
-    watch: dart run build_runner watch
+    build: dart run build_runner build --delete-conflicting-outputs
+    watch: dart run build_runner watch --delete-conflicting-outputs
+  build:
+    $before: flutter pub get
+    $after: echo "Build done!"
+    web: flutter build web --flavor production -t lib/main.dart
+    android:
+      apk: flutter build apk --flavor production -t lib/main.dart
+      appbundle: flutter build appbundle --flavor production -t lib/main.dart
+    ios:
+      ipa: flutter build ipa --flavor production -t lib/main.dart
+      ios: flutter build ios --flavor production -t lib/main.dart
+    reset: |
+      flutter clean 
+      flutter pub get
 
 # Dependencies specify other packages that your package needs in order to work.
 # To automatically upgrade your package dependencies to the latest versions
